@@ -1,11 +1,6 @@
 import numpy as np
 
 def manual_cosine_similarity(q_vec, D_matrix):
-    """
-    Ручне обчислення косинусної подібності між вектором запиту та матрицею документів.
-    q_vec: одновимірний масив (розміру k)
-    D_matrix: двовимірний масив (розміру n_docs х k)
-    """
     dot_products = np.dot(D_matrix, q_vec)
 
     norm_q = np.sqrt(np.sum(q_vec ** 2))
@@ -28,10 +23,7 @@ def search_query(query, vectorizer, svd_model, d_new_matrix, original_documents,
     q_vec = np.asarray(q_new).flatten()
     
     similarities = manual_cosine_similarity(q_vec, d_new_matrix)
-    
-    # 4. Знаходимо індекси топ-N найкращих збігів
-    # argsort() сортує індекси за зростанням значень, тому ми беремо останні top_n елементів
-    # і перевертаємо масив [::-1], щоб найвища подібність була першою
+
     best_match_indices = similarities.argsort()[-top_n:][::-1]
     
     print(f"\n--- Результати пошуку для запиту: '{query}' ---")

@@ -1,10 +1,6 @@
 import numpy as np
 
 def manual_svd(A_matrix, k_dimensions=100, max_iters=100, tol=1e-5):
-    """
-    Ручна реалізація Truncated SVD за допомогою Power Iteration.
-    """
-    print(f"Запуск ручного SVD для k={k_dimensions}...")
 
     n_docs, n_terms = A_matrix.shape
 
@@ -12,7 +8,6 @@ def manual_svd(A_matrix, k_dimensions=100, max_iters=100, tol=1e-5):
     S = np.zeros(k_dimensions)
     Vt = np.zeros((k_dimensions, n_terms))
 
-    print("Обчислення матриці коваріації A^T * A...")
     ATA = A_matrix.T @ A_matrix
 
     for i in range(k_dimensions):
@@ -44,10 +39,6 @@ def manual_svd(A_matrix, k_dimensions=100, max_iters=100, tol=1e-5):
         S[i] = sigma
         U[:, i] = u
 
-        if (i + 1) % 10 == 0:
-            print(f"Знайдено {i + 1}/{k_dimensions} компонентів...")
-
-    print("Проєкція документів у новий простір...")
     d_new_matrix = U * S
 
     class ManualSVDModel:
