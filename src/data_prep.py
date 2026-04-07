@@ -66,7 +66,8 @@ def build_term_document_matrix(documents: list, stop_words: set):
 
             A[i][j] = tf * idf
 
-    return A, vocabulary
+    idfs = [math.log(num_docs / d) for d in df]
+    return A, vocabulary, idfs
 
 def load_corpus(file_path):
     """
