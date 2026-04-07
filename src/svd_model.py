@@ -1,54 +1,48 @@
 import numpy as np
 
-def manual_svd(A_matrix, k_dimensions=100, max_iters=100, tol=1e-5):
+def perform_manual_svd(matrix_A):
+    A = np.array(matrix_A)
+    m, n = A.shape
+    k_max = min(m, n)
 
-    n_docs, n_terms = A_matrix.shape
+    # Find U
+    aat = np.dot(A, A.T)
+    evals_u, U = np.linalg.eigh(aat)
 
-    U = np.zeros((n_docs, k_dimensions))
-    S = np.zeros(k_dimensions)
-    Vt = np.zeros((k_dimensions, n_terms))
+    # Sort and keep only the top k_max
+    idx_u = evals_u.argsort()[::-1]
+    U = U[:, idx_u][:, :k_max] 
 
-    ATA = A_matrix.T @ A_matrix
+    # Find V
+    ata = np.dot(A.T, A)
+    evals_v, V = np.linalg.eigh(ata)
 
-    for i in range(k_dimensions):
-        v = np.random.rand(n_terms)
-        v = v / np.linalg.norm(v)
+    # Sort and keep only the top k_max
+    idx_v = evals_v.argsort()[::-1]
+    V = V[:, idx_v][:, :k_max]
+    
+    # Find Singular Values
+    singular_values = np.sqrt(np.maximum(evals_u[idx_u][:k_max], 0))
 
-        for _ in range(max_iters):
-            v_new = ATA @ v
+    return U, singular_values, V.T
 
-            for j in range(i):
-                v_new -= np.dot(Vt[j], v_new) * Vt[j]
+def truncate_svd(U, S, VT, k):
+    """
+    Reduces the dimensionality to k concepts
+    """
+    U_k = U[:, :k]
+    S_k = np.diag(S[:k])
+    VT_k = VT[:k, :]
+    return U_k, S_k, VT_k
 
-            v_new = v_new / np.linalg.norm(v_new)
+if __name__ == "__main__":
+    test_A = [[1, 0], [0, 1], [1, 1]]
+    U, S, VT = perform_manual_svd(test_A)
 
-            if np.linalg.norm(v_new - v) < tol:
-                v = v_new
-                break
-            v = v_new
+    print("Singular Values:", S)
+    print("U shape:", U.shape)
+    print("V^T shape:", VT.shape)
 
-        Av = A_matrix @ v
-        sigma = np.linalg.norm(Av)
+    Uk, Sk, VTk = truncate_svd(U, S, VT, k=1)
+    print("Truncated S shape:", Sk.shape)
 
-        if sigma > 1e-10:
-            u = Av / sigma
-        else:
-            u = np.zeros(n_docs)
-
-        Vt[i, :] = v
-        S[i] = sigma
-        U[:, i] = u
-
-    d_new_matrix = U * S
-
-    class ManualSVDModel:
-        def __init__(self, Vt):
-            self.components_ = Vt
-
-        def transform(self, X):
-            return X @ self.components_.T
-
-    return ManualSVDModel(Vt), d_new_matrix
-
-def apply_svd(A_matrix, k_dimensions=100):
-    return manual_svd(A_matrix, k_dimensions)
