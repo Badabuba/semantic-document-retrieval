@@ -50,5 +50,10 @@ def rank_documents(q_sem, D_sem):
         score = get_cosine_similarity(q_sem, doc_vector)
         scores.append(score)
 
-    return np.argsort(scores)[::-1], scores
+    scores = np.array(scores)
+    print(scores[:10])
+    ranked_indices = np.argsort(scores)[::-1]
+    print(ranked_indices[:10])
+
+    return ranked_indices, scores
 

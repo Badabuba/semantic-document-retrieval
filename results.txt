@@ -1,0 +1,43 @@
+LSA SEARCH ENGINE RESULTS
+Query: uranium
+Parameters: k=20, docs=547
+==================================================
+
+RESULT #1
+Score: -0.7674
+Document Text:
+
+
+
+
+
+
+Well, I thought it must have been a joke, but I don't get the 
+joke in the name. Read it aloud? David MACaloon. David MacALLoon.
+David macalOON. I don't geddit.
+------------------------------
+
+RESULT #2
+Score: -0.5642
+Document Text:
+
+
+
+	They did the rollout already??!?  I am going to have to pay more
+attention to the news.  Are any of the gifs headed for wuarchive??
+ 
+
+Patrick
+
+
+------------------------------
+
+RESULT #3
+Score: -0.7327
+Document Text:
+
+
+Oh gee, a billion dollars!  That'd be just about enough to cover the cost of the
+feasability study!  Happy, Happy, JOY! JOY!
+------------------------------
+
