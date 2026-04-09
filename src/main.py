@@ -56,28 +56,28 @@ def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: st
 
 if __name__ == "__main__":
     # UNCOMMENT THIS TO TRY ON A CUSTOM DATASET AND COMMENT ALL CODE BELOW
-    # my_docs = [
-    # "The feline purred on the couch.", # Cat concept
-    # "A small kitten is playing with yarn.", # Cat concept
-    # "The pilot of the plane told us to stop.", # Other concept
-    # "The kitten sat on the couch.", # Cat concept
-    # "Friday evenings are the best." # Other concept
-    # ]
-    # users_query = "kitten on the mat"
-    # k = 2
-    # run_lsa_engine(my_docs, k, users_query, 2, "result.txt")
+    my_docs = [
+    "The feline purred on the couch.", # Cat concept
+    "A small kitten is playing with yarn.", # Cat concept
+    "The pilot of the plane told us to stop.", # Other concept
+    "The kitten sat on the couch.", # Cat concept
+    "Friday evenings are the best." # Other concept
+    ]
+    users_query = "kitten on the mat"
+    k = 2
+    run_lsa_engine(my_docs, k, users_query, 2, "result.txt")
 
 
-    from sklearn.datasets import fetch_20newsgroups
-    print("Loading 20 Newsgroups data...")
-    newsgroups = fetch_20newsgroups(subset='train', 
-                                    categories=['sci.space'],
-                                    remove=('headers', 'footers', 'quotes'))
+    # from sklearn.datasets import fetch_20newsgroups
+    # print("Loading 20 Newsgroups data...")
+    # newsgroups = fetch_20newsgroups(subset='train', 
+    #                                 categories=['sci.space'],
+    #                                 remove=('headers', 'footers', 'quotes'))
 
-    my_docs = [doc for doc in newsgroups.data if len(doc.strip()) > 100]
+    # my_docs = [doc for doc in newsgroups.data if len(doc.strip()) > 100]
 
-    k = 20
-    users_query = "uranium"
+    # k = 20
+    # users_query = "uranium"
 
-    print(f"Running LSA on {len(my_docs)} documents with k={k}...")
-    run_lsa_engine(my_docs, k, users_query, 3, "result.txt")
+    # print(f"Running LSA on {len(my_docs)} documents with k={k}...")
+    # run_lsa_engine(my_docs, k, users_query, 3, "result.txt")
