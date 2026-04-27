@@ -4,6 +4,8 @@ from data_prep import get_stopwords, load_corpus, build_term_document_matrix
 from svd_model import perform_manual_svd, truncate_svd
 from search import project_query, rank_documents
 import numpy as np
+import pandas as pd
+import random
 
 def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: str):
     """
@@ -55,33 +57,32 @@ def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: st
     print(f"Saved the top {top_n} results to 'results.txt'")
 
 if __name__ == "__main__":
-    # UNCOMMENT THIS TO TRY ON A CUSTOM DATASET AND COMMENT ALL CODE BELOW
-    test_documents = [
-        # Cluster 1: Space & Astronomy (Shared words: Space, NASA, Mission, Orbit)
-        "NASA launched a new space mission to study the orbit of distant planets.",
-        "The space telescope is part of a NASA mission to photograph deep space galaxies.",
-        "Astronauts on the space station are monitoring the orbit of the satellite.",
-        "A mission to Mars is being planned by NASA using advanced space technology.",
-        "The moon is in orbit around Earth and is a target for future space exploration.",
+    # this dataset consist of 5 topics: business, entertainment, politics, sport, tech
+    dataset_path = "data/bbc-news-data.csv"
 
-        # Cluster 2: Culinary Arts (Shared words: Recipe, Cooking, Chef, Dish)
-        "The chef shared a secret recipe for a classic Italian pasta dish.",
-        "Cooking a gourmet dish requires following a precise recipe from a professional chef.",
-        "This recipe for roasted chicken is a favorite dish among home cooking enthusiasts.",
-        "The restaurant chef specializes in a spicy dish using a traditional cooking recipe.",
-        "Every chef knows that a great dish starts with fresh ingredients and a good recipe.",
+    try:
+        print(f"Loading dataset from {dataset_path}...")
 
-        # Cluster 3: Programming (Shared words: Code, Software, Program, Language)
-        "Software developers write code using the Python programming language.",
-        "This computer program uses efficient code to improve software performance.",
-        "Learning a new programming language is essential for modern software development.",
-        "The software engineer debugged the code to fix a bug in the program.",
-        "A clean program requires well-documented code and solid software architecture."
-    ]
+        df = pd.read_csv(dataset_path, sep='\t', on_bad_lines='skip')
+        raw_documents = df['content'].dropna().astype(str).tolist()
+        test_documents = raw_documents[:1000]
 
-    users_query = "Cooking"
-    k = 5
-    top_documents = 15
-    run_lsa_engine(test_documents, k, users_query, top_documents, "result.txt")
+        random.seed(42)
+        random.shuffle(raw_documents)
 
+        # take any number of documents for speed (max = 2225)
+        test_documents = raw_documents[:1000]
+        print(f"Loaded {len(test_documents)} documents.")
 
+        # Set your parameters
+        users_query = "football tournament match goal striker"
+        k = 50  # Increase k for larger datasets
+        top_documents = 10
+
+        # Run the Engine
+        run_lsa_engine(test_documents, k, users_query, top_documents, "result.txt")
+
+    except FileNotFoundError:
+        print(f"Error: {dataset_path} not found. Make sure the file is in the same folder.")
+    except Exception as e:
+        print(f"An error occurred: {e}")

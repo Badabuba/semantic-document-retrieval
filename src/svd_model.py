@@ -54,7 +54,6 @@ def perform_manual_svd(matrix_A):
 
     # Singular Values
     singular_values = np.sqrt(np.maximum(evals_v, 0))
-    print(singular_values)
 
     # U_i = (A * V_i) / Sigma_i
     U = np.zeros((m, k_max))

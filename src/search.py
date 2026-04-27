@@ -54,8 +54,6 @@ def rank_documents(q_sem, D_sem):
 
     scores = np.array(scores)
     ranked_indices = np.argsort(scores)[::-1]
-    print(ranked_indices[:10])
-    print(scores[:10])
 
     return ranked_indices, scores
 
