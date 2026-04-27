@@ -79,10 +79,9 @@ if __name__ == "__main__":
         k = 50  # Increase k for larger datasets
         top_documents = 10
 
-        # Run the Engine
         run_lsa_engine(test_documents, k, users_query, top_documents, "result.txt")
 
     except FileNotFoundError:
-        print(f"Error: {dataset_path} not found. Make sure the file is in the same folder.")
+        print(f"{dataset_path} not found")
     except Exception as e:
         print(f"An error occurred: {e}")
