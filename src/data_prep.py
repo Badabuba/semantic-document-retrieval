@@ -40,7 +40,7 @@ def build_term_document_matrix(documents: list, stop_words: set):
 
     # Matrix A
     A = [[0.0 for _ in range(num_docs)] for _ in range(num_words)]
-    
+
     # Calculate Document Frequency (df)
     df = [0] * num_words
     for doc in processed_docs:
@@ -82,18 +82,21 @@ if __name__ == "__main__":
     #Test
     stops = get_stopwords()
 
-    sample_docs = [
-        "The cat sat on the mat.", 
-        "The dog sat on the log.",
-        "The bird flew over the log."
+    my_docs = [
+    "The feline purred on the couch.", # Cat concept
+    "A small kitten is playing with yarn.", # Cat concept
+    "The pilot of the plane told us to stop.", # Other concept
+    "The kitten sat on the couch.", # Cat concept
+    "Friday evenings are the best." # Other concept
     ]
-    
-    matrix, vocab = build_term_document_matrix(sample_docs, stops)
+
+
+    matrix, vocab, idfs = build_term_document_matrix(my_docs, stops)
 
     print(f"Vocabulary ({len(vocab)} words): {vocab}")
     print(f"Matrix shape: {len(matrix)} rows (terms) x {len(matrix[0])} columns (docs)")
 
-    n = 3
+    n = 16
     print(f"\nSample of Matrix A (first {n} rows):")
     for idx, row in enumerate(matrix[:n]):
         formatted_row = [round(val, 4) for val in row]

@@ -6,12 +6,15 @@ def project_query(query_text, vocabulary, idf_weights, U_k, stop_words):
     Translates a text query into the semantic concept space using TF-IDF.
     """
     query_words = clean_text(query_text, stop_words)
+    if len(query_words) == 0:
+        return np.zeros(U_k.shape[1])
 
     # Vectorize with TF-IDF
     q_tfidf = np.zeros(len(vocabulary))
     word_to_index = {word: i for i, word in enumerate(vocabulary)}
 
-    for word in query_words:
+    unique_query_words = set(query_words)
+    for word in unique_query_words:
         if word in word_to_index:
             idx = word_to_index[word]
             # TF
@@ -40,7 +43,6 @@ def get_cosine_similarity(vec1, vec2):
 def rank_documents(q_sem, D_sem):
     """
     Compares the query to all documents in the semantic space.
-    D_sem is the matrix (Sigma_k * V^T_k) where each column is a doc.
     """
     num_docs = D_sem.shape[1]
     scores = []
@@ -51,9 +53,9 @@ def rank_documents(q_sem, D_sem):
         scores.append(score)
 
     scores = np.array(scores)
-    print(scores[:10])
     ranked_indices = np.argsort(scores)[::-1]
     print(ranked_indices[:10])
+    print(scores[:10])
 
     return ranked_indices, scores
 

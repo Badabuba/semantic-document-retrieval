@@ -1,43 +1,95 @@
 LSA SEARCH ENGINE RESULTS
-Query: uranium
-Parameters: k=20, docs=547
+Query: Cooking
+Parameters: k=5, docs=15
 ==================================================
 
 RESULT #1
-Score: -0.7674
+Score: 0.9984
 Document Text:
-
-
-
-
-
-
-Well, I thought it must have been a joke, but I don't get the 
-joke in the name. Read it aloud? David MACaloon. David MacALLoon.
-David macalOON. I don't geddit.
+This recipe for roasted chicken is a favorite dish among home cooking enthusiasts.
 ------------------------------
 
 RESULT #2
-Score: -0.5642
+Score: 0.9982
 Document Text:
-
-
-
-	They did the rollout already??!?  I am going to have to pay more
-attention to the news.  Are any of the gifs headed for wuarchive??
- 
-
-Patrick
-
-
+Every chef knows that a great dish starts with fresh ingredients and a good recipe.
 ------------------------------
 
 RESULT #3
-Score: -0.7327
+Score: 0.9975
 Document Text:
+The chef shared a secret recipe for a classic Italian pasta dish.
+------------------------------
 
+RESULT #4
+Score: 0.9943
+Document Text:
+Cooking a gourmet dish requires following a precise recipe from a professional chef.
+------------------------------
 
-Oh gee, a billion dollars!  That'd be just about enough to cover the cost of the
-feasability study!  Happy, Happy, JOY! JOY!
+RESULT #5
+Score: 0.9870
+Document Text:
+The restaurant chef specializes in a spicy dish using a traditional cooking recipe.
+------------------------------
+
+RESULT #6
+Score: 0.1823
+Document Text:
+A clean program requires well-documented code and solid software architecture.
+------------------------------
+
+RESULT #7
+Score: 0.1457
+Document Text:
+A mission to Mars is being planned by NASA using advanced space technology.
+------------------------------
+
+RESULT #8
+Score: 0.0728
+Document Text:
+Software developers write code using the Python programming language.
+------------------------------
+
+RESULT #9
+Score: 0.0397
+Document Text:
+The space telescope is part of a NASA mission to photograph deep space galaxies.
+------------------------------
+
+RESULT #10
+Score: 0.0109
+Document Text:
+NASA launched a new space mission to study the orbit of distant planets.
+------------------------------
+
+RESULT #11
+Score: -0.0033
+Document Text:
+Astronauts on the space station are monitoring the orbit of the satellite.
+------------------------------
+
+RESULT #12
+Score: -0.0044
+Document Text:
+This computer program uses efficient code to improve software performance.
+------------------------------
+
+RESULT #13
+Score: -0.0091
+Document Text:
+The software engineer debugged the code to fix a bug in the program.
+------------------------------
+
+RESULT #14
+Score: -0.0272
+Document Text:
+Learning a new programming language is essential for modern software development.
+------------------------------
+
+RESULT #15
+Score: -0.0329
+Document Text:
+The moon is in orbit around Earth and is a target for future space exploration.
 ------------------------------
 
