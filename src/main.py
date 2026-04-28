@@ -1,5 +1,3 @@
-# https://www.kaggle.com/datasets/au1206/20-newsgroup-original
-
 from data_prep import get_stopwords, load_corpus, build_term_document_matrix
 from svd_model import perform_manual_svd, truncate_svd
 from search import project_query, rank_documents
@@ -75,7 +73,7 @@ if __name__ == "__main__":
         print(f"Loaded {len(test_documents)} documents.")
 
         # Set your parameters
-        users_query = "football tournament match goal striker"
+        users_query = "football forward, forwards"
         k = 50  # Increase k for larger datasets
         top_documents = 10
 
