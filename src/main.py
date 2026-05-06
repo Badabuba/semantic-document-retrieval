@@ -1,9 +1,10 @@
 from data_prep import get_stopwords, load_corpus, build_term_document_matrix
-from svd_model import perform_manual_svd, truncate_svd
+from svd_model import perform_manual_truncated_svd
 from search import project_query, rank_documents
 import numpy as np
 import pandas as pd
 import random
+import textwrap
 
 def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: str):
     """
@@ -20,9 +21,9 @@ def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: st
 
     # Perform Manual SVD, Truncation
     print(f"Starting SVD...")
-    U, S, VT = perform_manual_svd(A)
+    U_k, S_k, VT_k = perform_manual_truncated_svd(A, k)
     print(f"SVD done")
-    U_k, S_k, VT_k = truncate_svd(U, S, VT, k)
+
 
     # Create Document Semantic Map (D_sem = S_k * VT_k)
     D_sem = np.dot(S_k, VT_k)
@@ -46,10 +47,12 @@ def run_lsa_engine(documents: list, k: int, query: str, top_n: int, result_f: st
             doc_idx = top_indices[i]
             score = scores[doc_idx]
             content = documents[doc_idx]
+            cleaned_content = " ".join(content.split())
+            wrapped_content = textwrap.fill(cleaned_content, width=80)
 
             f.write(f"RESULT #{i+1}\n")
             f.write(f"Score: {score:.4f}\n")
-            f.write(f"Document Text:\n{content}\n")
+            f.write(f"Document Text:\n{wrapped_content}\n")
             f.write("-" * 30 + "\n\n")
 
     print(f"Saved the top {top_n} results to 'results.txt'")
@@ -63,18 +66,17 @@ if __name__ == "__main__":
 
         df = pd.read_csv(dataset_path, sep='\t', on_bad_lines='skip')
         raw_documents = df['content'].dropna().astype(str).tolist()
-        test_documents = raw_documents[:1000]
 
         random.seed(42)
         random.shuffle(raw_documents)
 
-        # take any number of documents for speed (max = 2225)
-        test_documents = raw_documents[:1000]
+        # take any number of documents (max = 2225)
+        test_documents = raw_documents
         print(f"Loaded {len(test_documents)} documents.")
 
         # Set your parameters
-        users_query = "football forward, forwards"
-        k = 50  # Increase k for larger datasets
+        users_query = "football coach"
+        k = 50  # 50 preserves 65% of variance, 70 preserves 80% of variance, look at plot.png
         top_documents = 10
 
         run_lsa_engine(test_documents, k, users_query, top_documents, "result.txt")
